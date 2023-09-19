@@ -2,7 +2,7 @@
 
 > One day, shortly after waking up, you experience an unexpected rush of ambition and motivation. *"It's such a nice day, maybe I should take a stroll around the neighborhood..."*
 >
-> After just a few moments of shoe-tying, notebook-grabbing, and knob-turning, you head out the door, reach to experience the world!
+> After just a few moments of shoe-tying, notebook-grabbing, and knob-turning, you head out the door, ready to experience the world!
 
 Stroll is a character-based, 2D, register-storage esoteric programming language about taking a quick stroll around the neighborhood.
 
@@ -12,7 +12,7 @@ Stroll is a character-based, 2D, register-storage esoteric programming language 
 
 A program written in Stroll is called a Stroll. It depicts the path you travel and the actions to take on your walk around the neighborhood. It is a text file composed of ASCII characters, arranged in a grid.
 
-A stroll is composed of various nodes ("points"), which are connected by edges ("paths"). This effectively makes a stroll a graph. Each points and path may have an action associated with it, and the entire program is run incrementally until it terminates or crashed. No validation is done before the program arrives at the next action.
+A stroll is composed of various nodes ("points"), which are connected by edges ("paths"). This effectively makes a stroll a graph. Each points and path may have an action associated with it, and the entire program is run incrementally until it terminates or crashes. No validation is done before the program arrives at the next action.
 
 ### Home
 
