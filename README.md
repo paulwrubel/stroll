@@ -100,7 +100,7 @@ A stroll can accept user input. You can input up to 9 arguments, which get pre-f
 
 > This stop feels different. You are overcome with energy! In this sudden surge, you find yourself unable to hold back from sharing your progress with the world! Since you know no one would understand the true meaning on your abstract tallies in your notes, you decide to take it upon yourself to translate your step count into something you *know* the world appreciates: Unicode.
 
-The `y` stop represents a stop to yell on your stroll. This stop takes the current notebook page's value, and outputs the Unicode codepoint corresponding to that number.
+The `y` stop represents a point to yell on your stroll. This point takes the current notebook page's value, and outputs the Unicode codepoint corresponding to that number.
 
 ### Cardinal Directions
 
@@ -129,6 +129,17 @@ The following stroll will print the first input character 10 times.
 H-2>>>>>>>>>>0-r-2<#
                |   |
                2-y-1
+```
+
+### Portals
+
+> You happen upon a nexus of magical energy. It shimmers and coalesces before you, until eventually converging into an identifiable form... It appears to lead to an entire separate trail! With uncertainty and intrigue in your heart, you take a timid step into the radiant sphere, where your ultimate fate is not known...
+
+Portals can be placed on a stroll with `@`. A portal can be entered from any direction, and will always transport you to the location of another portal on the stroll. If multiple portal other than the one you entered exist, one is chosen at random. The direction you enter a portal is not taken into account after being transported: you can always exit a portal on any valid path.
+
+The following valid stroll will print the input character
+```
+@-H-1-y-@
 ```
 
 ## Example Programs

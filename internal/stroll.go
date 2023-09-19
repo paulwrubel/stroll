@@ -141,8 +141,16 @@ func (s *Stroll) executeCell(c cell) {
 		} else {
 			s.registers[s.currentRegister]--
 		}
-	case Home, Waypoint:
+	case Home, Waypoint, Crossing:
 		// noop
+	case Portal:
+		otherPortalPos, foundPortal := s.getOtherPortalLocation(s.currentPos)
+		if foundPortal {
+			s.currentPos = otherPortalPos
+		}
+		// else
+		// noop
+		// you're lost, buddy! good luck!
 	case Reg0:
 		s.currentRegister = 0
 	case Reg1:
@@ -186,6 +194,16 @@ func (s *Stroll) getNextDirection(c cell) direction {
 			return s.currentDirection
 		}
 		return newDir
+	case Portal:
+		// we ignore which direction we came from with portals
+		newDir, foundPath := s.getRandomDirection()
+		if !foundPath {
+			// will probably always be Blank, maybe, probably...
+			return s.currentDirection
+		}
+		return newDir
+	case Crossing:
+		return s.currentDirection
 	case TurnNorth:
 		return North
 	case TurnSouth:
@@ -225,6 +243,45 @@ func (s *Stroll) getRandomValidDirection() (direction, bool) {
 	}
 	if len(candidates) == 0 {
 		return direction(0), false
+	}
+	return candidates[rand.Intn(len(candidates))], true
+}
+
+func (s *Stroll) getRandomDirection() (direction, bool) {
+	candidates := []direction{}
+	if s.getCellAt(s.currentPos.North()) != Blank {
+		candidates = append(candidates, North)
+	}
+	if s.getCellAt(s.currentPos.South()) != Blank {
+		candidates = append(candidates, South)
+	}
+	if s.getCellAt(s.currentPos.East()) != Blank {
+		candidates = append(candidates, East)
+	}
+	if s.getCellAt(s.currentPos.West()) != Blank {
+		candidates = append(candidates, West)
+	}
+	if len(candidates) == 0 {
+		return direction(0), false
+	}
+	return candidates[rand.Intn(len(candidates))], true
+}
+
+func (s *Stroll) getOtherPortalLocation(thisPos point) (point, bool) {
+	candidates := []point{}
+	for x, col := range s.cells {
+		for y, cell := range col {
+			thatPos := point{
+				x: x,
+				y: y,
+			}
+			if cell == Portal && thatPos != thisPos {
+				candidates = append(candidates, thatPos)
+			}
+		}
+	}
+	if len(candidates) == 0 {
+		return point{}, false
 	}
 	return candidates[rand.Intn(len(candidates))], true
 }

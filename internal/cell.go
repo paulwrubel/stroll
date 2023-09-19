@@ -20,6 +20,9 @@ const (
 	// basic
 	Home
 	Waypoint
+	Crossing
+	// advanced
+	Portal
 	// registers
 	Reg0
 	Reg1
@@ -64,6 +67,10 @@ func (c cell) String() string {
 		return "H"
 	case Waypoint:
 		return "#"
+	case Crossing:
+		return "+"
+	case Portal:
+		return "@"
 	case Reg0:
 		return "0"
 	case Reg1:
@@ -108,6 +115,8 @@ func (c cell) String() string {
 func (c cell) IsNode() bool {
 	return c == Home ||
 		c == Waypoint ||
+		c == Crossing ||
+		c == Portal ||
 		c == Reg0 ||
 		c == Reg1 ||
 		c == Reg2 ||
@@ -152,6 +161,11 @@ func parseCell(b byte) (cell, error) {
 		return Home, nil
 	case '#':
 		return Waypoint, nil
+	case '+':
+		return Crossing, nil
+	// advanced
+	case '@':
+		return Portal, nil
 	// registers
 	case '0':
 		return Reg0, nil
@@ -198,6 +212,10 @@ func parseCell(b byte) (cell, error) {
 }
 
 func isValidTransition(a, b cell, dir direction) bool {
+	if b == Blank {
+		return true
+	}
+
 	switch a {
 	case SkipHorizontal:
 		return b == SkipHorizontal || b.IsNode()
@@ -215,7 +233,7 @@ func isValidTransition(a, b cell, dir direction) bool {
 		return b == SkipHorizontal ||
 			b == WalkFacingEast ||
 			b == WalkFacingWest
-	case Waypoint:
+	case Waypoint, Crossing, Portal:
 		return !b.IsNode()
 	case TurnNorth, TurnSouth:
 		return b == SkipVertical || b == WalkFacingNorth || b == WalkFacingSouth
