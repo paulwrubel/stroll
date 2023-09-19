@@ -23,3 +23,22 @@ func (d direction) Opposite() direction {
 		panic("invalid direction")
 	}
 }
+
+func (d direction) Left() direction {
+	switch d {
+	case North:
+		return West
+	case South:
+		return East
+	case East:
+		return North
+	case West:
+		return South
+	default:
+		panic("invalid direction")
+	}
+}
+
+func (d direction) Right() direction {
+	return d.Left().Opposite()
+}

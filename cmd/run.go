@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"io"
-	"log"
 	"os"
 
 	"github.com/paulwrubel/stroll/internal"
@@ -31,17 +30,20 @@ func runRun(cmd *cobra.Command, args []string) {
 	// read input
 	strollBytes, err := readStrollBytes(args[0])
 	if err != nil {
-		log.Fatalf("error reading stroll bytes: %s\n", err.Error())
+		fmt.Printf("error reading stroll bytes: %s\n", err.Error())
+		os.Exit(1)
 	}
 
 	// run the program
 	stroll, err := internal.NewStroll(string(strollBytes), args[1:])
 	if err != nil {
-		log.Fatalf("error planning stroll: %s\n", err.Error())
+		fmt.Printf("error planning stroll: %s\n", err.Error())
+		os.Exit(1)
 	}
 	err = stroll.Execute()
 	if err != nil {
-		log.Fatalf("error strolling: %s\n", err.Error())
+		fmt.Printf("error strolling: %s.\n", err.Error())
+		os.Exit(1)
 	}
 
 }

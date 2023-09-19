@@ -141,7 +141,7 @@ func (s *Stroll) executeCell(c cell) {
 		} else {
 			s.registers[s.currentRegister]--
 		}
-	case Home:
+	case Home, Waypoint:
 		// noop
 	case Reg0:
 		s.currentRegister = 0
@@ -163,7 +163,7 @@ func (s *Stroll) executeCell(c cell) {
 		s.currentRegister = 8
 	case Reg9:
 		s.currentRegister = 9
-	case TurnNorth, TurnSouth, TurnEast, TurnWest:
+	case TurnNorth, TurnSouth, TurnEast, TurnWest, TurnLeft, TurnRight:
 		// noop
 	case Yell:
 		fmt.Printf("%c", s.registers[s.currentRegister])
@@ -179,7 +179,7 @@ func (s *Stroll) getNextDirection(c cell) direction {
 		return s.currentDirection
 	case Home:
 		return East
-	case Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero:
+	case Waypoint, Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero:
 		newDir, foundPath := s.getRandomValidDirection()
 		if !foundPath {
 			// will probably always be Blank, maybe, probably...
@@ -194,6 +194,16 @@ func (s *Stroll) getNextDirection(c cell) direction {
 		return East
 	case TurnWest:
 		return West
+	case TurnLeft:
+		if s.registers[s.currentRegister] == 0 {
+			return s.currentDirection
+		}
+		return s.currentDirection.Left()
+	case TurnRight:
+		if s.registers[s.currentRegister] == 0 {
+			return s.currentDirection
+		}
+		return s.currentDirection.Right()
 	default:
 		panic("invalid cell")
 	}

@@ -17,8 +17,9 @@ const (
 	WalkFacingWest
 
 	//-- nodes --//
-	// home
+	// basic
 	Home
+	Waypoint
 	// registers
 	Reg0
 	Reg1
@@ -35,6 +36,9 @@ const (
 	TurnSouth
 	TurnEast
 	TurnWest
+	// turns
+	TurnLeft
+	TurnRight
 	// actions
 	Yell
 	Zero
@@ -58,6 +62,8 @@ func (c cell) String() string {
 		return "<"
 	case Home:
 		return "H"
+	case Waypoint:
+		return "#"
 	case Reg0:
 		return "0"
 	case Reg1:
@@ -86,6 +92,10 @@ func (c cell) String() string {
 		return "e"
 	case TurnWest:
 		return "w"
+	case TurnLeft:
+		return "l"
+	case TurnRight:
+		return "r"
 	case Yell:
 		return "y"
 	case Zero:
@@ -97,6 +107,7 @@ func (c cell) String() string {
 
 func (c cell) IsNode() bool {
 	return c == Home ||
+		c == Waypoint ||
 		c == Reg0 ||
 		c == Reg1 ||
 		c == Reg2 ||
@@ -111,6 +122,8 @@ func (c cell) IsNode() bool {
 		c == TurnSouth ||
 		c == TurnEast ||
 		c == TurnWest ||
+		c == TurnLeft ||
+		c == TurnRight ||
 		c == Yell ||
 		c == Zero
 }
@@ -134,9 +147,11 @@ func parseCell(b byte) (cell, error) {
 	case '<':
 		return WalkFacingWest, nil
 	//-- nodes --//
-	// home
+	// basic
 	case 'H':
 		return Home, nil
+	case '#':
+		return Waypoint, nil
 	// registers
 	case '0':
 		return Reg0, nil
@@ -167,6 +182,11 @@ func parseCell(b byte) (cell, error) {
 		return TurnEast, nil
 	case 'w':
 		return TurnWest, nil
+	// turns
+	case 'l':
+		return TurnLeft, nil
+	case 'r':
+		return TurnRight, nil
 	// actions
 	case 'y':
 		return Yell, nil
@@ -195,10 +215,14 @@ func isValidTransition(a, b cell, dir direction) bool {
 		return b == SkipHorizontal ||
 			b == WalkFacingEast ||
 			b == WalkFacingWest
+	case Waypoint:
+		return !b.IsNode()
 	case TurnNorth, TurnSouth:
 		return b == SkipVertical || b == WalkFacingNorth || b == WalkFacingSouth
 	case TurnEast, TurnWest:
 		return b == SkipHorizontal || b == WalkFacingEast || b == WalkFacingWest
+	case TurnLeft, TurnRight:
+		return !b.IsNode()
 	case Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero:
 		if dir == North || dir == South {
 			return b == SkipVertical || b == WalkFacingNorth || b == WalkFacingSouth
