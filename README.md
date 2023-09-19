@@ -222,3 +222,49 @@ v 4>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y<<<<<<<<<<<<y>>>>>>>>>>>>>>>>>>>
 v                                                                                                                   |
 #>>>>>>>>>>>>>>>>y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y>>>>>>>>y-2-y<<<<<<<<<<<<<0-y-3
 ```
+
+### Fibonacci
+
+The following program will print a Unicode character with a codepoint equal to the *n*th Fibonacci number, where *n* is the Unicode character of the first argument, minus `48`. 48 is subtracted to allow you to start with "0" corresponding to the number `0`, and so one.
+
+One good example pairing is inputting a `=` (`U+003D`, or `61`, which corresponds to the `13`th Fibonacci number [`61` - `48` = `13`]). The expected output is `é` (`U+00E9`, or `233` a.k.a. "Latin Small Letter E with acute").
+
+```
+#----------------w-----w-#
+|                |     | |
+|                | #<9 | |
+|                | | | | |
+|                | 1<l-# |
+|                |   |   |
+|                #-# 0   |
+|                  | |   |
+9-y-z y-H-1 #----r-# | #-#
+    v ^   ^ v    ^   | |
+# # v ^   ^ v    #-r># |
+v ^ v ^   ^ v      |   |
+v ^ v ^   ^ v      9>0-r-7-z-8-r-----e-9-r-----e-#
+v ^ v ^   ^ v          v       |     |   |     | |
+v ^ #-#   ^ v          1       e-8-r-#   e-9-r-# |
+v ^       ^ v          |       ^   ^     ^   ^   |
+v ^       ^ v          |       7---#     8---#   |
+v ^       ^ v          |                         |
+v ^       ^ v          |    #--------------------#
+v ^       ^ v          |    |
+v ^       ^ v          |    7-r-----------e-8-r-----------e-#
+v ^       ^ v          |      |           |   |           | |
+v ^       ^ v          |      e-7-r-e-0-r-#   e-8-r-e-0-r-# |
+v ^       ^ v          |      |   | |   |     |   | |   |   |
+v ^       ^ v          |      |   0 #>0<7     |   0 #>0<8   |
+v ^       ^ v          |      |   v           |   v         |
+v ^       ^ v          |      #>7<9           #>8<9         |
+v ^       ^ v          |                                    |
+v ^       ^ v          #------------------------------------#
+v ^       ^ v
+v ^       ^ v
+v ^       ^ v
+v ^       ^ v
+v ^       #-#
+v ^
+v ^
+#-#
+```
