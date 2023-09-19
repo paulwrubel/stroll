@@ -98,13 +98,13 @@ A stroll can accept user input. You can input up to 9 arguments, which get pre-f
 
 ### Yelling!
 
-> This stop feels different. You are overcome with energy! In this sudden surge, you find yourself unable to hold back from sharing your progress with the world! Since you know no one would understand the true meaning on your abstract tallies in your notes, you decide to take it upon yourself to translate your step count into something you *know* the world appreciates: Unicode.
+> This point feels different. You are overcome with energy! In this sudden surge, you find yourself unable to hold back from sharing your progress with the world! Since you know no one would understand the true meaning on your abstract tallies in your notes, you decide to take it upon yourself to translate your step count into something you *know* the world appreciates: Unicode.
 
-The `y` stop represents a point to yell on your stroll. This point takes the current notebook page's value, and outputs the Unicode codepoint corresponding to that number.
+The `y` point represents a point to yell on your stroll. This point takes the current notebook page's value, and outputs the Unicode codepoint corresponding to that number.
 
 ### Cardinal Directions
 
-> At the latest stop, the sign is clear: though there are multiple paths forwards, one must only travel towards the direction indicated. You shrug this seemingly-artificial restriction off and continue on your merry way.
+> At the latest point, the sign is clear: though there are multiple paths forwards, one must only travel towards the direction indicated. You shrug this seemingly-artificial restriction off and continue on your merry way.
 
 You can force a direction change by referencing cardinal directions (`n`, `s`, `e`, `w`). This *can* be used in place of waypoints, but is most useful when combining branching paths.
 
@@ -115,6 +115,21 @@ H>#>#>#
 #-w-w-#
 ```
 After the stroll is completed, page `0` is always either 1, 2, or 3, and we always return home in a bounded amount of time.
+
+### Crossings
+
+> You stand before a bridge. You can see a path below you, crossing under the bridge, but it cannot be travelled upon from here. You hesistate in thought of where this path might go. Eventually, refocusing on your journey straight ahead, you continue onwards.
+
+Crossings can be added with `+`. When you encounter a crossing, you must travel straight. You otherwise perform no action.
+
+The following valid stroll prints out the input character, and is fully deterministic.
+```
+#---#
+|   |
+H-1-+-y
+    | |
+    #-#
+```
 
 ### Forks
 
