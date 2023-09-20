@@ -157,6 +157,20 @@ The following valid stroll will print the first character in the argument.
 @-H-1-y-@
 ```
 
+### Comments
+
+> In the distance you can barely make out a few shapes. They look bizarre to you. Strangely... alien. You decide it would be best not to loiter thinking about it for too long, and swiftly continue on your way.
+
+Characters are checked for validity as they are encountered on the path, and any unknown character is interpreted as a `comment` node. Comments are always invalid to encounter, but if they are unencounterable on a stroll, they are therefore valid to include.
+
+```
+I'm the above program,
+
+@-H-1-y-@ but with included
+
+comments that cannot be reached!
+```
+
 ## Example Programs
 
 ### Hello World
