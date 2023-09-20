@@ -137,7 +137,7 @@ H-1-+-y
 
 Forks in the path will change directions conditionally. You can fork left or fork right, with `l` or `r` respectively. A fork in the road will turn in the direction indicated *unless the current notebook page's value is exactly 0.*
 
-The following stroll will print the first input character 10 times.
+The following stroll will print the first character in the argument 10 times.
 ```
 #--------------#
 |              |
@@ -152,7 +152,7 @@ H-2>>>>>>>>>>0-r-2<#
 
 Portals can be placed on a stroll with `@`. A portal can be entered from any direction, and will always transport you to the location of another portal on the stroll. If multiple portal other than the one you entered exist, one is chosen at random. The direction you enter a portal is not taken into account after being transported: you can always exit a portal on any valid path.
 
-The following valid stroll will print the input character
+The following valid stroll will print the first character in the argument.
 ```
 @-H-1-y-@
 ```
@@ -161,7 +161,7 @@ The following valid stroll will print the input character
 
 ### Hello World
 
-The following stroll prints `hello, world` if you provide the following arguments: `h`, `e`, `l`, `o`, `,`, ` `, `w`, `r`, `d`.
+The following stroll prints `hello, world` if you provide the following argument: `helo, wrd`.
 
 ```
 H-1-y-2-y-3-y-y-4-y-5-y
@@ -183,7 +183,7 @@ H-2>>>>>>>>>>0-r-2<#
 
 ### Random Bits
 
-The following stroll will print either `0` or `1` *x* times, where *x* is the numeric value of the provided character in argument 1.
+The following stroll will print either `0` or `1` *x* times, where *x* is the numeric value of the 1st character in the provided argument.
 
 ```
 #-----#   y---#
@@ -199,7 +199,7 @@ H-2 0-r-1<2-y-s
 
 ### Nondeterminism
 
-The following stroll represents non-deterministic behaviour. It has a 25% change of exiting each loop. Otherwise, it prints the provided character.
+The following stroll represents non-deterministic behaviour. It has a 25% change of exiting each loop. Otherwise, it prints the first character.
 
 ```
   #-------#
@@ -213,7 +213,7 @@ H-e-1-#-y-n
 
 ### Hello World, Goodbye Input
 
-This stroll prints `Hello, World!\n` with no input needed. It is obviously not space-optimized
+This stroll prints `Hello, World!\n` with no input needed. It is obviously not space-optimized.
 
 ```
 #---------------------H>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y
@@ -231,7 +231,7 @@ v                                                                               
 
 ### Hello World, Many Times
 
-This stroll prints `Hello, World!\n` *x* times, where *x* is the numeric value of the provided character in argument 1.
+This stroll prints `Hello, World!\n` *x* times, where *x* is the numeric value of the first character in the argument.
 
 ```
                      #-#
@@ -251,7 +251,7 @@ v                                                                               
 
 ### Fibonacci
 
-The following program will print a Unicode character with a codepoint equal to the *n*th Fibonacci number, where *n* is the Unicode character of the first argument, minus `48`. 48 is subtracted to allow you to start with "0" corresponding to the number `0`, and so one.
+The following program will print a Unicode character with a codepoint equal to the *n*th Fibonacci number, where *n* is the Unicode decimal value of the first character of the argument, minus `48`. 48 is subtracted to allow you to start with "0" corresponding to the number `0`, and so one.
 
 One good example pairing is inputting a `=` (`U+003D`, or `61`, which corresponds to the `13`th Fibonacci number [`61` - `48` = `13`]). The expected output is `é` (`U+00E9`, or `233` a.k.a. "Latin Small Letter E with acute").
 
