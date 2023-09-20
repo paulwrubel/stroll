@@ -17,7 +17,7 @@ type Stroll struct {
 	currentDirection direction
 }
 
-func NewStroll(strollBytes string, args []string) (*Stroll, error) {
+func NewStroll(strollBytes string, args string) (*Stroll, error) {
 	inputLines := strings.Split(strollBytes, "\n")
 	if len(inputLines) == 0 {
 		return nil, errors.New("no content in input text")
@@ -52,23 +52,16 @@ func NewStroll(strollBytes string, args []string) (*Stroll, error) {
 	// fill cells with parsed data
 	for y, line := range lines {
 		for x, rawCell := range line {
-			cell, err := parseCell(rawCell)
-			if err != nil {
-				return nil, err
-			}
-			cells[x][y] = cell
+			cells[x][y] = parseCell(rawCell)
 		}
 	}
 
 	registers := make([]int64, 10)
-	for i := 0; i < 9; i++ {
-		if len(args) > i {
-			arg := args[i]
-			// if len(arg) != 1 {
-			// 	return nil, fmt.Errorf("invalid register argument at index %d, length too long (arg: %s, len: %d)", i, arg, len(arg))
-			// }
-			registers[i+1] = int64(arg[0])
+	for i, r := range args {
+		if i+1 > 9 {
+			break
 		}
+		registers[i+1] = int64(r)
 	}
 
 	return &Stroll{
@@ -294,12 +287,19 @@ func (s *Stroll) getCellAt(p point) cell {
 }
 
 func (s *Stroll) getHomePoint() (point, error) {
+	candidates := []point{}
 	for x, col := range s.cells {
 		for y, cell := range col {
 			if cell == Home {
-				return point{x: x, y: y}, nil
+				candidates = append(candidates, point{x: x, y: y})
 			}
 		}
 	}
-	return point{}, errors.New("no home found")
+	if len(candidates) == 0 {
+		return point{}, errors.New("no home found")
+	}
+	if len(candidates) > 1 {
+		return point{}, errors.New("multiple homes found")
+	}
+	return candidates[0], nil
 }

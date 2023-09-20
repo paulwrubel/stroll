@@ -1,7 +1,5 @@
 package internal
 
-import "errors"
-
 type cell int
 
 const (
@@ -45,6 +43,8 @@ const (
 	// actions
 	Yell
 	Zero
+	// comment
+	Comment
 )
 
 func (c cell) String() string {
@@ -107,6 +107,8 @@ func (c cell) String() string {
 		return "y"
 	case Zero:
 		return "z"
+	case Comment:
+		return "?"
 	default:
 		return "?"
 	}
@@ -137,83 +139,86 @@ func (c cell) IsNode() bool {
 		c == Zero
 }
 
-func parseCell(b byte) (cell, error) {
+func parseCell(b byte) cell {
 	switch b {
 	//-- blank --//
 	case ' ':
-		return Blank, nil
+		return Blank
 	//-- edges --//
 	case '-':
-		return SkipHorizontal, nil
+		return SkipHorizontal
 	case '|':
-		return SkipVertical, nil
+		return SkipVertical
 	case '^':
-		return WalkFacingNorth, nil
+		return WalkFacingNorth
 	case 'v':
-		return WalkFacingSouth, nil
+		return WalkFacingSouth
 	case '>':
-		return WalkFacingEast, nil
+		return WalkFacingEast
 	case '<':
-		return WalkFacingWest, nil
+		return WalkFacingWest
 	//-- nodes --//
 	// basic
 	case 'H':
-		return Home, nil
+		return Home
 	case '#':
-		return Waypoint, nil
+		return Waypoint
 	case '+':
-		return Crossing, nil
+		return Crossing
 	// advanced
 	case '@':
-		return Portal, nil
+		return Portal
 	// registers
 	case '0':
-		return Reg0, nil
+		return Reg0
 	case '1':
-		return Reg1, nil
+		return Reg1
 	case '2':
-		return Reg2, nil
+		return Reg2
 	case '3':
-		return Reg3, nil
+		return Reg3
 	case '4':
-		return Reg4, nil
+		return Reg4
 	case '5':
-		return Reg5, nil
+		return Reg5
 	case '6':
-		return Reg6, nil
+		return Reg6
 	case '7':
-		return Reg7, nil
+		return Reg7
 	case '8':
-		return Reg8, nil
+		return Reg8
 	case '9':
-		return Reg9, nil
+		return Reg9
 	// cardinal directions
 	case 'n':
-		return TurnNorth, nil
+		return TurnNorth
 	case 's':
-		return TurnSouth, nil
+		return TurnSouth
 	case 'e':
-		return TurnEast, nil
+		return TurnEast
 	case 'w':
-		return TurnWest, nil
+		return TurnWest
 	// turns
 	case 'l':
-		return TurnLeft, nil
+		return TurnLeft
 	case 'r':
-		return TurnRight, nil
+		return TurnRight
 	// actions
 	case 'y':
-		return Yell, nil
+		return Yell
 	case 'z':
-		return Zero, nil
+		return Zero
 	default:
-		return 0, errors.New("invalid cell")
+		return Comment
 	}
 }
 
 func isValidTransition(a, b cell, dir direction) bool {
-	if b == Blank {
+	if a == Blank || b == Blank {
 		return true
+	}
+	if a == Comment || b == Comment {
+		return false
 	}
 
 	switch a {

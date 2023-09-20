@@ -18,7 +18,7 @@ var runCmd = &cobra.Command{
 This will run a single stroll file.
 
 If the first argument is '-', it will read from stdin for the stroll text.`,
-	Args: cobra.RangeArgs(1, 10),
+	Args: cobra.RangeArgs(1, 2),
 	Run:  runRun,
 }
 
@@ -34,8 +34,13 @@ func runRun(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
+	strollArgs := ""
+	if len(args) == 2 {
+		strollArgs = args[1]
+	}
+
 	// run the program
-	stroll, err := internal.NewStroll(string(strollBytes), args[1:])
+	stroll, err := internal.NewStroll(string(strollBytes), strollArgs)
 	if err != nil {
 		fmt.Printf("error planning stroll: %s\n", err.Error())
 		os.Exit(1)

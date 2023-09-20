@@ -94,7 +94,7 @@ The zero point, `z`, will reset the count on the current page to 0.
 
 > After grabbing a random notebook from the shelf, you notice that its pages already have a bunch of tallies on them! Oh well, you'll just have to continue from where they left off, I guess...
 
-A stroll can accept user input. You can input up to 9 arguments, which get pre-filled into pages `1`-`9` when you leave your home. They can then be changed or referenced like normal.
+A stroll can accept user input. You can supply a single argument, a string, the characters of which will get pre-filled into pages `1`-`9` when you leave your home. The values of the characters as a Unicode decimal value will be used. They can then be changed or referenced like normal. Characters past the 9th in a supplied string are ignored.
 
 ### Yelling!
 
