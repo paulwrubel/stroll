@@ -90,6 +90,12 @@ Strolls exist in many unique shapes and paths.
 
 The zero point, `Z`, will reset the count on the current page to 0.
 
+### Memorize and Recall
+
+> You decide to take a mental note of your current step count. Focusing on a single number, you are able to persist it in your memory indefinitely. Who knows, at some point son on your stroll you may find it helpful to recall what it was!
+
+You can memorize a number with `M` and later recall it with `R`. You can only memorize a single number at a time, and it will stay memorized until the stroll is completed.
+
 ### Prepared Notes
 
 > After grabbing a random notebook from the shelf, you notice that its pages already have a bunch of tallies on them! Oh well, you'll just have to continue from where they left off, I guess...

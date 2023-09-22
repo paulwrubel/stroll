@@ -43,6 +43,8 @@ const (
 	// actions
 	Yell
 	Zero
+	Memorize
+	Recall
 	// comment
 	Comment
 )
@@ -107,6 +109,10 @@ func (c cell) String() string {
 		return "Y"
 	case Zero:
 		return "Z"
+	case Memorize:
+		return "M"
+	case Recall:
+		return "R"
 	case Comment:
 		return "?"
 	default:
@@ -136,7 +142,9 @@ func (c cell) IsNode() bool {
 		c == TurnLeft ||
 		c == TurnRight ||
 		c == Yell ||
-		c == Zero
+		c == Zero ||
+		c == Memorize ||
+		c == Recall
 }
 
 func parseCell(b byte) cell {
@@ -208,6 +216,10 @@ func parseCell(b byte) cell {
 		return Yell
 	case 'Z':
 		return Zero
+	case 'M':
+		return Memorize
+	case 'R':
+		return Recall
 	default:
 		return Comment
 	}
@@ -246,7 +258,7 @@ func isValidTransition(a, b cell, dir direction) bool {
 		return b == SkipHorizontal || b == WalkFacingEast || b == WalkFacingWest
 	case TurnLeft, TurnRight:
 		return !b.IsNode()
-	case Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero:
+	case Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero, Memorize, Recall:
 		if dir == North || dir == South {
 			return b == SkipVertical || b == WalkFacingNorth || b == WalkFacingSouth
 		}

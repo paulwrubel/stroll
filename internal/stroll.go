@@ -10,7 +10,8 @@ import (
 type Stroll struct {
 	cells [][]cell
 
-	tape *tape
+	tape   *tape
+	memory int64
 
 	currentPos       point
 	currentDirection direction
@@ -171,6 +172,10 @@ func (s *Stroll) executeCell(c cell) {
 		fmt.Printf("%c", s.tape.Read())
 	case Zero:
 		s.tape.Write(0)
+	case Memorize:
+		s.memory = s.tape.Read()
+	case Recall:
+		s.tape.Write(s.memory)
 	}
 }
 
@@ -181,7 +186,7 @@ func (s *Stroll) getNextDirection(c cell) direction {
 		return s.currentDirection
 	case Home:
 		return East
-	case Waypoint, Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero:
+	case Waypoint, Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero, Memorize, Recall:
 		newDir, foundPath := s.getRandomValidDirection()
 		if !foundPath {
 			// will probably always be Blank, maybe, probably...
