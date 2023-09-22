@@ -88,7 +88,7 @@ Strolls exist in many unique shapes and paths.
 
 > Shucks. You've lost count of your steps. Well, there's nowhere to go but forwards now! You hastily scribble out your old tallies, ready to start anew.
 
-The zero point, `z`, will reset the count on the current page to 0.
+The zero point, `Z`, will reset the count on the current page to 0.
 
 ### Prepared Notes
 
@@ -100,7 +100,7 @@ A stroll can accept user input. You can supply a single argument, a string, the 
 
 > This point feels different. You are overcome with energy! In this sudden surge, you find yourself unable to hold back from sharing your progress with the world! Since you know no one would understand the true meaning on your abstract tallies in your notes, you decide to take it upon yourself to translate your step count into something you *know* the world appreciates: Unicode.
 
-The `y` point represents a point to yell on your stroll. This point takes the current notebook page's value, and outputs the Unicode codepoint corresponding to that number.
+The `Y` point represents a point to yell on your stroll. This point takes the current notebook page's value, and outputs the Unicode codepoint corresponding to that number.
 
 ### Cardinal Directions
 
@@ -126,7 +126,7 @@ The following valid stroll prints out the input character, and is fully determin
 ```
 #---#
 |   |
-H-1-+-y
+H-1-+-Y
     | |
     #-#
 ```
@@ -143,7 +143,7 @@ The following stroll will print the first character in the argument 10 times.
 |              |
 H-2>>>>>>>>>>0-r-2<#
                |   |
-               2-y-1
+               2-Y-1
 ```
 
 ### Portals
@@ -154,7 +154,7 @@ Portals can be placed on a stroll with `@`. A portal can be entered from any dir
 
 The following valid stroll will print the first character in the argument.
 ```
-@-H-1-y-@
+@-H-1-Y-@
 ```
 
 ### Comments
@@ -166,7 +166,7 @@ Characters are checked for validity as they are encountered on the path, and any
 ```
 I'm the above program,
 
-@-H-1-y-@ but with included
+@-H-1-Y-@ but with included
 
 comments that cannot be reached!
 ```
@@ -178,9 +178,9 @@ comments that cannot be reached!
 The following stroll prints `hello, world` if you provide the following argument: `helo, wrd`.
 
 ```
-H-1-y-2-y-3-y-y-4-y-5-y
+H-1-Y-2-Y-3-Y-Y-4-Y-5-Y
 |                     |
-y-9-y-3-y-8-y-4-y-7-y-6
+Y-9-Y-3-Y-8-Y-4-Y-7-Y-6
 ```
 
 ### Print 10 Times
@@ -192,7 +192,7 @@ As seen above, this stroll will print the first provided character 10 times.
 |              |
 H-2>>>>>>>>>>0-r-2<#
                |   |
-               2-y-1
+               2-Y-1
 ```
 
 ### Random Bits
@@ -202,7 +202,7 @@ The following stroll will print either `0` or `1` *x* times, where *x* is the nu
 ```
 #-----#   y---#
 |     |   ^   ^
-H-2 0-r-1<2-y-s
+H-2 0-r-1<2-Y-s
   v ^ |       |
   v ^ #-1-----#
   v ^
@@ -218,9 +218,9 @@ The following stroll represents non-deterministic behaviour. It has a 25% change
 ```
   #-------#
   |       |
-H-e-1-#-y-n
+H-e-1-#-Y-n
 |   |     |
-|   #---y-n
+|   #---Y-n
 |   |
 #---#
 ```
@@ -230,17 +230,17 @@ H-e-1-#-y-n
 This stroll prints `Hello, World!\n` with no input needed. It is obviously not space-optimized.
 
 ```
-#---------------------H>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y
+#---------------------H>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y
 |                                                                                              |
-y                               #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<1-y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+Y                               #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<1-Y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
 v                               |
-v                               #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y--y
+v                               #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y--Y
 v                                                                                                                 |
-v y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<2
+v Y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<2
 v |
-v 3>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y<<<<<<<<<<<<y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y
+v 3>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y<<<<<<<<<<<<Y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y
 v                                                                                                                   |
-#>>>>>>>>>>>>>>>>y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y>>>>>>>>y-1-y<<<<<<<<<<<<<0-y-2
+#>>>>>>>>>>>>>>>>Y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y>>>>>>>>Y-1-Y<<<<<<<<<<<<<0-Y-2
 ```
 
 ### Hello World, Many Times
@@ -250,17 +250,17 @@ This stroll prints `Hello, World!\n` *x* times, where *x* is the numeric value o
 ```
                      #-#
                      | |
-                     H-r---1<0>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y
+                     H-r---1<0>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y
                        |                                                                              |
-y-0-z-2-z-3-z-4-z-1----#        #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<2--------y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
+Y-0-Z-2-Z-3-Z-4-Z-1----#        #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<2--------Y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<#
 v                               |
-v                               #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y--y
+v                               #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y--Y
 v                                                                                                                 |
-v y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<3
+v Y<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<3
 v |
-v 4>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y<<<<<<<<<<<<y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y
+v 4>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y<<<<<<<<<<<<Y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y
 v                                                                                                                   |
-#>>>>>>>>>>>>>>>>y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>y>>>>>>>>y-2-y<<<<<<<<<<<<<0-y-3
+#>>>>>>>>>>>>>>>>Y>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Y>>>>>>>>Y-2-Y<<<<<<<<<<<<<0-Y-3
 ```
 
 ### Fibonacci
@@ -278,11 +278,11 @@ One good example pairing is inputting a `=` (`U+003D`, or `61`, which correspond
 |                |   |   |
 |                #-# 0   |
 |                  | |   |
-9-y-z y-H-1 #----r-# | #-#
+9-Y-Z Y-H-1 #----r-# | #-#
     v ^   ^ v    ^   | |
 # # v ^   ^ v    #-r># |
 v ^ v ^   ^ v      |   |
-v ^ v ^   ^ v      9>0-r-7-z-8-r-----e-9-r-----e-#
+v ^ v ^   ^ v      9>0-r-7-Z-8-r-----e-9-r-----e-#
 v ^ v ^   ^ v          v       |     |   |     | |
 v ^ #-#   ^ v          1       e-8-r-#   e-9-r-# |
 v ^       ^ v          |       ^   ^     ^   ^   |
@@ -326,11 +326,11 @@ copy 1 to    copy 2 to   ensure 4 is      subtract 0   print starting at 8
                                                                            
 H-1-e-r------2-e-r-------e-4-r----# #-----0-e-r--------9>e-r-#
 |   v |        v |       v   |    | |       v |          v | |
-y   1 0        2 4       3   3-r--+-#       0>9          9 | |
+Y   1 0        2 4       3   3-r--+-#       0>9          9 | |
 ^   ^ v        | v       v     |  |                      ^ | |
-^   3<8        #<9       4-----#  |                      y-8 |
+^   3<8        #<9       4-----#  |                      Y-8 |
 ^                                 |                          |
-#<<<<<<<z-0-----------------------w--------------------------#
+#<<<<<<<Z-0-----------------------w--------------------------#
 
 print newline
 ```
