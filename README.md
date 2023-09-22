@@ -94,7 +94,7 @@ The zero point, `Z`, will reset the count on the current page to 0.
 
 > You decide to take a mental note of your current step count. Focusing on a single number, you are able to persist it in your memory indefinitely. Who knows, at some point son on your stroll you may find it helpful to recall what it was!
 
-You can memorize a number with `M` and later recall it with `R`. You can only memorize a single number at a time, and it will stay memorized until the stroll is completed. Memorizing a number can be very helpful for otherwise tedious tasks, such as swapping two numbers.
+You can memorize a number with `M` and later recall it with `R`. You can only memorize a single number at a time, they do not stack in your memory. You are not required to Recall (`R`) before memorizing again. Memorizing a number can be very helpful for otherwise tedious tasks, such as swapping two numbers.
 
 Swapping two numbers without memorize:
 ```
