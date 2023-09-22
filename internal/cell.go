@@ -104,9 +104,9 @@ func (c cell) String() string {
 	case TurnRight:
 		return "r"
 	case Yell:
-		return "y"
+		return "Y"
 	case Zero:
-		return "z"
+		return "Z"
 	case Comment:
 		return "?"
 	default:
@@ -204,9 +204,9 @@ func parseCell(b byte) cell {
 	case 'r':
 		return TurnRight
 	// actions
-	case 'y':
+	case 'Y':
 		return Yell
-	case 'z':
+	case 'Z':
 		return Zero
 	default:
 		return Comment
