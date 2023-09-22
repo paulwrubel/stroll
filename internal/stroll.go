@@ -10,8 +10,7 @@ import (
 type Stroll struct {
 	cells [][]cell
 
-	registers       []int64
-	currentRegister int
+	tape *tape
 
 	currentPos       point
 	currentDirection direction
@@ -56,17 +55,19 @@ func NewStroll(strollBytes string, args string) (*Stroll, error) {
 		}
 	}
 
-	registers := make([]int64, 10)
+	tape := NewTape()
+	tape.MoveTo(0)
 	for i, r := range args {
 		if i+1 > 9 {
 			break
 		}
-		registers[i+1] = int64(r)
+		tape.MoveForward()
+		tape.Write(int64(r))
 	}
 
 	return &Stroll{
-		cells:     cells,
-		registers: registers,
+		cells: cells,
+		tape:  tape,
 	}, nil
 }
 
@@ -79,7 +80,7 @@ func (s *Stroll) Execute() error {
 	// we always start by heading east
 	s.currentPos = homePoint
 	s.currentDirection = East
-	s.currentRegister = 0
+	s.tape.MoveTo(0)
 
 	for {
 		currentCell := s.getCellAt(s.currentPos)
@@ -112,27 +113,27 @@ func (s *Stroll) executeCell(c cell) {
 		// noop
 	case WalkFacingNorth:
 		if s.currentDirection == North {
-			s.registers[s.currentRegister]++
+			s.tape.Write(s.tape.Read() + 1)
 		} else {
-			s.registers[s.currentRegister]--
+			s.tape.Write(s.tape.Read() - 1)
 		}
 	case WalkFacingSouth:
 		if s.currentDirection == South {
-			s.registers[s.currentRegister]++
+			s.tape.Write(s.tape.Read() + 1)
 		} else {
-			s.registers[s.currentRegister]--
+			s.tape.Write(s.tape.Read() - 1)
 		}
 	case WalkFacingEast:
 		if s.currentDirection == East {
-			s.registers[s.currentRegister]++
+			s.tape.Write(s.tape.Read() + 1)
 		} else {
-			s.registers[s.currentRegister]--
+			s.tape.Write(s.tape.Read() - 1)
 		}
 	case WalkFacingWest:
 		if s.currentDirection == West {
-			s.registers[s.currentRegister]++
+			s.tape.Write(s.tape.Read() + 1)
 		} else {
-			s.registers[s.currentRegister]--
+			s.tape.Write(s.tape.Read() - 1)
 		}
 	case Home, Waypoint, Crossing:
 		// noop
@@ -145,31 +146,31 @@ func (s *Stroll) executeCell(c cell) {
 		// noop
 		// you're lost, buddy! good luck!
 	case Reg0:
-		s.currentRegister = 0
+		s.tape.MoveTo(0)
 	case Reg1:
-		s.currentRegister = 1
+		s.tape.MoveTo(1)
 	case Reg2:
-		s.currentRegister = 2
+		s.tape.MoveTo(2)
 	case Reg3:
-		s.currentRegister = 3
+		s.tape.MoveTo(3)
 	case Reg4:
-		s.currentRegister = 4
+		s.tape.MoveTo(4)
 	case Reg5:
-		s.currentRegister = 5
+		s.tape.MoveTo(5)
 	case Reg6:
-		s.currentRegister = 6
+		s.tape.MoveTo(6)
 	case Reg7:
-		s.currentRegister = 7
+		s.tape.MoveTo(7)
 	case Reg8:
-		s.currentRegister = 8
+		s.tape.MoveTo(8)
 	case Reg9:
-		s.currentRegister = 9
+		s.tape.MoveTo(9)
 	case TurnNorth, TurnSouth, TurnEast, TurnWest, TurnLeft, TurnRight:
 		// noop
 	case Yell:
-		fmt.Printf("%c", s.registers[s.currentRegister])
+		fmt.Printf("%c", s.tape.Read())
 	case Zero:
-		s.registers[s.currentRegister] = 0
+		s.tape.Write(0)
 	}
 }
 
@@ -206,12 +207,12 @@ func (s *Stroll) getNextDirection(c cell) direction {
 	case TurnWest:
 		return West
 	case TurnLeft:
-		if s.registers[s.currentRegister] == 0 {
+		if s.tape.Read() == 0 {
 			return s.currentDirection
 		}
 		return s.currentDirection.Left()
 	case TurnRight:
-		if s.registers[s.currentRegister] == 0 {
+		if s.tape.Read() == 0 {
 			return s.currentDirection
 		}
 		return s.currentDirection.Right()
