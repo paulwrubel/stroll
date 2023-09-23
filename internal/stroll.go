@@ -15,9 +15,11 @@ type Stroll struct {
 
 	currentPos       point
 	currentDirection direction
+
+	debug bool
 }
 
-func NewStroll(strollBytes string, args string) (*Stroll, error) {
+func NewStroll(strollBytes string, args string, enableDebug bool) (*Stroll, error) {
 	inputLines := strings.Split(strollBytes, "\n")
 	if len(inputLines) == 0 {
 		return nil, errors.New("no content in input text")
@@ -69,6 +71,7 @@ func NewStroll(strollBytes string, args string) (*Stroll, error) {
 	return &Stroll{
 		cells: cells,
 		tape:  tape,
+		debug: enableDebug,
 	}, nil
 }
 
@@ -166,6 +169,10 @@ func (s *Stroll) executeCell(c cell) {
 		s.tape.MoveTo(8)
 	case Reg9:
 		s.tape.MoveTo(9)
+	case MoveTapeBackward:
+		s.tape.MoveBackward()
+	case MoveTapeForward:
+		s.tape.MoveForward()
 	case TurnNorth, TurnSouth, TurnEast, TurnWest, TurnLeft, TurnRight:
 		// noop
 	case Yell:
@@ -176,6 +183,10 @@ func (s *Stroll) executeCell(c cell) {
 		s.memory = s.tape.Read()
 	case Recall:
 		s.tape.Write(s.memory)
+	case DebugPrint:
+		if s.debug {
+			s.tape.DebugPrint()
+		}
 	}
 }
 
@@ -186,7 +197,7 @@ func (s *Stroll) getNextDirection(c cell) direction {
 		return s.currentDirection
 	case Home:
 		return East
-	case Waypoint, Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero, Memorize, Recall:
+	case Waypoint, Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, MoveTapeBackward, MoveTapeForward, Yell, Zero, Memorize, Recall, DebugPrint:
 		newDir, foundPath := s.getRandomValidDirection()
 		if !foundPath {
 			// will probably always be Blank, maybe, probably...

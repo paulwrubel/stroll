@@ -32,6 +32,8 @@ const (
 	Reg7
 	Reg8
 	Reg9
+	MoveTapeBackward
+	MoveTapeForward
 	// cardinal directions
 	TurnNorth
 	TurnSouth
@@ -45,6 +47,8 @@ const (
 	Zero
 	Memorize
 	Recall
+	// debug
+	DebugPrint
 	// comment
 	Comment
 )
@@ -93,6 +97,10 @@ func (c cell) String() string {
 		return "8"
 	case Reg9:
 		return "9"
+	case MoveTapeBackward:
+		return "B"
+	case MoveTapeForward:
+		return "F"
 	case TurnNorth:
 		return "n"
 	case TurnSouth:
@@ -113,6 +121,8 @@ func (c cell) String() string {
 		return "M"
 	case Recall:
 		return "R"
+	case DebugPrint:
+		return "!"
 	case Comment:
 		return "?"
 	default:
@@ -135,6 +145,8 @@ func (c cell) IsNode() bool {
 		c == Reg7 ||
 		c == Reg8 ||
 		c == Reg9 ||
+		c == MoveTapeBackward ||
+		c == MoveTapeForward ||
 		c == TurnNorth ||
 		c == TurnSouth ||
 		c == TurnEast ||
@@ -144,7 +156,8 @@ func (c cell) IsNode() bool {
 		c == Yell ||
 		c == Zero ||
 		c == Memorize ||
-		c == Recall
+		c == Recall ||
+		c == DebugPrint
 }
 
 func parseCell(b byte) cell {
@@ -197,6 +210,10 @@ func parseCell(b byte) cell {
 		return Reg8
 	case '9':
 		return Reg9
+	case 'B':
+		return MoveTapeBackward
+	case 'F':
+		return MoveTapeForward
 	// cardinal directions
 	case 'n':
 		return TurnNorth
@@ -220,6 +237,8 @@ func parseCell(b byte) cell {
 		return Memorize
 	case 'R':
 		return Recall
+	case '!':
+		return DebugPrint
 	default:
 		return Comment
 	}
@@ -250,15 +269,11 @@ func isValidTransition(a, b cell, dir direction) bool {
 		return b == SkipHorizontal ||
 			b == WalkFacingEast ||
 			b == WalkFacingWest
-	case Waypoint, Crossing, Portal:
-		return !b.IsNode()
 	case TurnNorth, TurnSouth:
 		return b == SkipVertical || b == WalkFacingNorth || b == WalkFacingSouth
 	case TurnEast, TurnWest:
 		return b == SkipHorizontal || b == WalkFacingEast || b == WalkFacingWest
-	case TurnLeft, TurnRight:
-		return !b.IsNode()
-	case Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero, Memorize, Recall:
+	case Waypoint, Crossing, Portal, TurnLeft, TurnRight, Reg0, Reg1, Reg2, Reg3, Reg4, Reg5, Reg6, Reg7, Reg8, Reg9, Yell, Zero, Memorize, Recall, MoveTapeBackward, MoveTapeForward, DebugPrint:
 		if dir == North || dir == South {
 			return b == SkipVertical || b == WalkFacingNorth || b == WalkFacingSouth
 		}

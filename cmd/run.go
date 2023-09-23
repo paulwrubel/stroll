@@ -9,6 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	debug bool
+)
+
 // runCmd represents the run command
 var runCmd = &cobra.Command{
 	Use:   "run FILENAME",
@@ -24,6 +28,7 @@ If the first argument is '-', it will read from stdin for the stroll text.`,
 
 func init() {
 	rootCmd.AddCommand(runCmd)
+	runCmd.Flags().BoolVarP(&debug, "debug", "d", false, "enable debug mode")
 }
 
 func runRun(cmd *cobra.Command, args []string) {
@@ -40,7 +45,7 @@ func runRun(cmd *cobra.Command, args []string) {
 	}
 
 	// run the program
-	stroll, err := internal.NewStroll(string(strollBytes), strollArgs)
+	stroll, err := internal.NewStroll(string(strollBytes), strollArgs, debug)
 	if err != nil {
 		fmt.Printf("error planning stroll: %s\n", err.Error())
 		os.Exit(1)
