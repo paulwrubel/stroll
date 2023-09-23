@@ -4,7 +4,7 @@
 >
 > After just a few moments of shoe-tying, notebook-grabbing, and knob-turning, you head out the door, ready to experience the world!
 
-Stroll is a character-based, 2D, register-storage esoteric programming language about taking a quick stroll around the neighborhood.
+Stroll is a character-based, 2D, cell-storage esoteric programming language about taking a quick stroll around the neighborhood. It draws inspiration from the two-dimentional nature of [Befunge](https://esolangs.org/wiki/Befunge) and the simplistic antagonism of [brainfuck](https://esolangs.org/wiki/Brainfuck). Due to trivial command translation between Stroll and a [Turing machine](https://en.wikipedia.org/wiki/Turing_machine), (or, alternatively, Turing machine "simulators", such as [brainfuck](https://esolangs.org/wiki/Brainfuck)), it is thought to be fully [Turing complete](https://en.wikipedia.org/wiki/Turing_completeness).
 
 **[Click here](using-the-stroll-tool.md) to view documentation on compiling and running the `stroll` binary, which can interpret valid Stroll files.**
 
@@ -66,7 +66,17 @@ As you stroll, you note the number of steps you take in your notebook. Each page
 
 > As you count your steps, you think it might be useful to separate your steps in some way. After all, the steps you took before this last waypoint aren't *really* the same steps as those you took after. Something about them just... *feels* different. You flip to another page and restart your count, while wondering what it all means.
 
-You can flip to another page in your notebook by simply referencing that page at a point, such as `0`, `1`, `2`, ..., `9`. There are exactly 10 pages in your notebook, `0`-`9`. It's not a very thick notebook.
+You note down steps in pages in your notebook, allowing you to reference them later! You start your stroll with your notebook flipped to page `0` always, which always begins with value `0`. Pages `1`-`9` may contain a value at the start of the program, and are not guaranteed to be `0` (see [prepared notes](#prepared-notes) for more details).
+#### Flipping Pages
+
+You can flip forward and backwards between pages using `F` and `B`. There are no bounds to your notebook, since if you run out of pages in one you just grab another, automatically and seamlessly!
+
+#### Referencing Pages
+
+You can also choose to flip to some specific pages in your notebook by simply referencing one of those pages, using `0`, `1`, `2`, ..., `9`. There are exactly 10 directly referencable pages in your notebook, `0`-`9` (these are the ones with page numbers printed on them).
+
+
+#### Examples
 
 The following stroll demonstrates counting to 3 in page `0`, which we start our stroll on, and then counting to -3 on page `1`, before ending our stroll:
 ```
@@ -78,6 +88,12 @@ H>>>#
 Note that an indentically functioning stroll can be written as follows:
 ```
 #>>1<<#
+^     ^
+#--H--#
+```
+or 
+```
+#>>F<<#
 ^     ^
 #--H--#
 ```
@@ -343,7 +359,7 @@ The following stroll will print all characters between *a* and *b*, where the ar
 | ae    | abcde                                                      |
 | 09    | 0123456789                                                 |
 | Za    | Z[\]^_`a                                                   |
-| Za    | ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz |
+| Az    | ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz |
 
 ```
 copy 1 to    copy 2 to   ensure 4 is      subtract 0   print starting at 8
