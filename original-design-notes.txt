@@ -1,0 +1,10 @@
+STROLL LANGUAGE
+-----------
+
+H, House, is your house. you start from there, and always start your stroll heading east
+>>>>, walk forward, increment cell by distance
+<<<<, walk backward, decrement cell by distance
+0, no op, usually for turning
+--- or |||, skip, no op
+y, yell, print current cell as character
+l/r, forks in the road. these are the only nodes that allow branching paths. they mean "go straight unless the current cell is zero, then go in that direction (left/right)
